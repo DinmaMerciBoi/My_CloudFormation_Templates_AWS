@@ -1,0 +1,48 @@
+---
+Parameters:
+  LatestAmiId:
+    Type:  'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'
+    Default: '/aws/service/canonical/ubuntu/server/jammy/stable/current/amd64/hvm/ebs-gp2/ami-id'
+
+
+Resources:
+  MyInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      AvailabilityZone: us-east-2a
+      ImageId: !Ref 'LatestAmiId'
+      InstanceType: t2.micro
+      KeyName: MyKey
+      SecurityGroups:
+        - !Ref MySecurityGroup
+      Tags:
+      - Key: Name
+        Value: TestServer
+
+  NewKeyPair:
+    Type: AWS::EC2::KeyPair
+    Properties:
+      KeyName: MyKey
+  
+
+ # our EC2 security group
+  MySecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enable ports 22, 80, 443
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: 80
+        ToPort: 80
+        CidrIp: 0.0.0.0/0
+      - IpProtocol: tcp
+        FromPort: 22
+        ToPort: 22
+        CidrIp: 0.0.0.0/0
+      - IpProtocol: tcp
+        FromPort: 443
+        ToPort: 443
+        CidrIp: 0.0.0.0/0
+      Tags:
+      - Key: Name
+        Value: My_SG

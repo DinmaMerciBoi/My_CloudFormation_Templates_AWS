@@ -1,0 +1,19 @@
+---
+Parameters:
+  LatestAmiId:
+    Type:  'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'
+    Default: '/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2'
+
+Resources:
+  MyInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      AvailabilityZone: us-east-2a
+      ImageId: !Ref 'LatestAmiId'
+      InstanceType: t2.micro
+      Tags:
+      - Key: Name
+        Value: MyServer
+
+
+#Default: '/aws/service/canonical/ubuntu/server/jammy/stable/current/amd64/hvm/ebs-gp2/ami-id'
