@@ -77,7 +77,7 @@ aws cloudformation update-stack --stack-name myteststack --template-url https://
 ```bash
 aws cloudformation cancel-update-stack
 ```
-  * `Note`: You can cancel only stacks that are in the `UPDATE_IN_PROGRESS` state.
+  * `Note`: You can cancel only update stacks that are in the `UPDATE_IN_PROGRESS` state.
 
 ### 10. Rolling Back an Update
 ```bash
